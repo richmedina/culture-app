@@ -1,11 +1,11 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0" />
     <meta name="theme-color" content="#2196F3">
 
     <title>InContext</title>
@@ -43,7 +43,7 @@
                     <div class="nav-wrapper">
                         <a href="{% url 'home' %}" class="brand-logo left">
                             <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
-                                alt="InContext" height="60" />
+                                alt="InContext Home" height="60" />
                         </a>
                         
                         <a href="{% url 'user_profile' %}" class="button-collapse right" data-activates="nav-mobile">
@@ -86,11 +86,11 @@
                     <div class="center-align">
                         <p><a href="https://thelanguageflagship.tech" target="_blank"><img
                                     src="{% static '/media/brand/Tech-Center-Logo.png' %}" style="width: 15em;"
-                                    class="responsive-img"></a></p>
+                                    class="responsive-img" alt="The Language Flagship Technology Innovation Center"></a></p>
                     </div>
                     <div class="center-align">
                         <p><img src="{% static '/assets/img/cc-license.png' %}" style="width: 7em;"
-                                class="center-align responsive-img"></p>
+                                class="center-align responsive-img" alt="Creative Commons License BY-NC-SA"></p>
                     </div>
                 </div>
             </div>

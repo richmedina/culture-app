@@ -19,7 +19,7 @@
         <p>
             <span class="custom-card-title-1 custom-title-padding">{{ topic.name }}</span>
             {% if request.user.is_staff %} 
-            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/topic/{{topic.pk}}/change" target="_blank">edit</a></span>
+            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/topic/{{topic.pk}}/change" target="_blank">edit {{ topic.name }}</a></span>
             {% endif %}
         </p>
         {% if topic.activation %}
@@ -40,7 +40,7 @@
                 <div class="situation-grid-child">
                     <p>Attempts</p>
                 </div>
-                <div><a class="button button-title" href="{% url 'home' %}scenario/{{ scenario.0.pk }} ">Begin</a>
+                <div><a class="button button-title" href="{% url 'home' %}scenario/{{ scenario.0.pk }} ">Begin {{ scenario.0 }}</a>
                 </div>
                 <div class="situation-grid-child"> {% if scenario.1.0 == 0 %}
                     <a class="chip custom-red-chip" data-position="top" data-chip="This is the number of times that you have completed this scenario">{{ scenario.1.0 }}</a>

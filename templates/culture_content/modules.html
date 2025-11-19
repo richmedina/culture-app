@@ -7,30 +7,30 @@
         {% for obj in modules %}
         <div class ="card custom-card-color custom-scroll-margin" id="{{ obj.name}}">
             <div class="card-section">
-                <a data-blurbshort="{{ obj.id}}">
+                <a href="#{{ obj.name}}" data-blurbshort="{{ obj.id}}" tabindex="0">
                     <span class="custom-card-title-1">{{ obj.name }}</span>                    
                     {{ obj.blurb|safe }}
                     <p class="more-less">More</p>
                 </a>
-                <a data-blurbfull="{{ obj.id}}">
+                <a href="#{{ obj.name}}" data-blurbfull="{{ obj.id}}" tabindex="0">
                     <span class="custom-card-title-1">{{ obj.name }}</span>
                     {{ obj.blurb|safe }}
                     {{ obj.introduction|safe }}
                     <p class="more-less">Less</p>
                 </a>
                 {% if request.user.is_staff %} 
-                <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/module/{{obj.pk}}/change" target="_blank">edit</a></span>
+                <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/module/{{obj.pk}}/change" target="_blank">edit {{ obj.name }}</a></span>
                 {% endif %} 
             </div>
 
             <div class="card-section">
-                <a data-topicsshort="{{ obj.id}}">
+                <a href="#{{ obj.name}}" data-topicsshort="{{ obj.id}}" tabindex="0">
                     <i class="material-icons">keyboard_arrow_right</i><span class="custom-card-title-2">Topics</span>
                 </a>
-                <a data-topicsfull="{{ obj.id}}">
+                <a href="#{{ obj.name}}" data-topicsfull="{{ obj.id}}" tabindex="0">
                     <i class="material-icons">keyboard_arrow_down</i><span class="custom-card-title-2">Topics</span><p/>
                     {% for top in obj.topics.all|dictsort:"order" %}
-                        <a href="{% url 'home' %}top/{{ top.pk }}" class="button button-title" data-topicsfull="{{ obj.id}}">{{ top.name }}</a><p/>
+                        <a href="{% url 'home' %}top/{{ top.pk }}" class="button button-title" data-topicsfull="{{ obj.id}}" tabindex="0">{{ top.name }}</a><p/>
                     {% endfor %}
                 </a>
             </div>
