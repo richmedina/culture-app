@@ -9,7 +9,17 @@
     <meta name="theme-color" content="#2196F3">
 
     <title>InContext</title>
-
+    {%if GA_MEASUREMENT_ID %}
+    <script async="https://www.googletagmanager.com/gtag/js?id={{ GA_MEASUREMENT_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', '{{ GA_MEASUREMENT_ID }}');
+    </script>
+    {% endif %}
     <!-- CSS  -->
 
     <link href="{% static '/assets/min/custom-min.css' %}" type="text/css" rel="stylesheet">

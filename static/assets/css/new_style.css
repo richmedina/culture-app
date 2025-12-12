@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 body {
 		font-size: 100%;
+		outline: 1px solid !important;
 	}
 
 	.title {
@@ -47,13 +48,14 @@ body {
 	line-height: 1;
 }
 
-	p, ol, ul {
+	p, ol, ul, label {
     font-family: 'Roboto', Arial, "sans-serif";
     font-weight : 300;
     font-size: 16pt;
     color : #221f1f;
 	line-height: 1.4;
 }
+
 	/*a:link {
 		font-weight : 900;
 		font-style: normal;
