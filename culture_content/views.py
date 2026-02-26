@@ -86,7 +86,7 @@ def save_response(request, answer_id, response):
         expert ={}
         expert['answer_id'] = answer_id
         expert['content'] = answer.content
-        expert['feedback'] = strip_tags(answer.feedback_final)
+        expert['feedback'] = answer.feedback_final
         expert['from']=answer.rating_from
         expert['to'] = answer.rating_to
         expert['response_id'] = response.pk
