@@ -13,7 +13,11 @@ import random
 import os
 
 IMAGE_PATH = settings.IMAGE_PATH
-approved_lang_modules = [v['code'] for k, v in settings.LANGUAGE_DATA.items() if v['status'] == 'active']
+TEMP_ACCESS_GROUP = settings.TEMP_ACCESS_GROUP
+
+
+approved_lang_modules = [v['code'] for k, v in settings.LANGUAGE_DATA.items() if v['status'] == 'active' or v['status'] == 'temp_access']
+temporary_lang_access = [v['code'] for k, v in settings.LANGUAGE_DATA.items() if v['status'] == 'temp_access']
 
 # Assemble list of possible images for each language.
 lang_img_paths = {
@@ -28,6 +32,9 @@ def home(request):
         if data['status'] == 'active':
             p = random.choice(lang_img_paths[lang])
             language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display']})
+        elif request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists() and data['status'] == 'temp_access':
+            p = random.choice(lang_img_paths[lang])
+            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display'] + ' (Temporary Access)'})
  
     template_context = {'languages': language_list}
     return render(request, 'culture_content/home.html', template_context)
@@ -38,8 +45,7 @@ def staff_review(request):
         raise Http404("Page not found")
     language_list = []
     for lang, data in settings.LANGUAGE_DATA.items():
-        if data['status'] == 'pending' or data['status'] == 'active':
-            print(lang_img_paths)
+        if data['status'] == 'pending' or data['status'] == 'active' or data['status'] == 'temp_access':
             p = random.choice(lang_img_paths[lang])
             language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display']})
  
@@ -50,6 +56,8 @@ def staff_review(request):
 @login_required
 def get_modules(request, lang):
     if lang not in approved_lang_modules and request.user.is_staff==False:
+        raise Http404("Page not found") 
+    elif lang in temporary_lang_access and request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists()==False and request.user.is_staff==False:
         raise Http404("Page not found")
     else:
         p = random.choice(lang_img_paths[lang])
@@ -63,8 +71,11 @@ def get_topic_scenarios(request, top_id):
     module = Module.objects.get(topics__in=[top_id])
     if module.language not in approved_lang_modules and request.user.is_staff==False:
         raise Http404("Page not found")
-    lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
-    scenario_results = get_scenarios_responses(top_id, request.user)
+    elif module.language in temporary_lang_access and request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists()==False and request.user.is_staff==False:
+        raise Http404("Page not found")
+    else:
+        lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
+        scenario_results = get_scenarios_responses(top_id, request.user)
     return render(request, 'culture_content/topics.html', {'topic': topic, 'module': module, 'lang_display': lang_display, 'scenario_results': scenario_results})
 
 
@@ -75,7 +86,10 @@ def get_scenario_detail(request, scenario_id):
     module = Module.objects.get(topics__in=[topic.id])
     if module.language not in approved_lang_modules and request.user.is_staff==False:
         raise Http404("Page not found")
-    lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
+    elif module.language in temporary_lang_access and request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists()==False and request.user.is_staff==False and request.user.is_staff==False:
+        raise Http404("Page not found")
+    else:
+        lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
     return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'lang_display': lang_display, 'ajax_save_resp': settings.SITE_ROOT+'save_response/',})
 
 
