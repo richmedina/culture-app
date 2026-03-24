@@ -17,7 +17,7 @@ approved_lang_modules = [v['code'] for k, v in settings.LANGUAGE_DATA.items() if
 
 # Assemble list of possible images for each language.
 lang_img_paths = {
-    lang: [data['img_home'] + '/' + os.path.basename(r) for r in glob(IMAGE_PATH + r'/' + data['img_home'] + r'/*.jpg')]
+    lang: [data['img_home'] + '/' + os.path.basename(r) for r in glob(IMAGE_PATH + r'/' + data['img_home'] + r'/*.*g')]
     for lang, data in settings.LANGUAGE_DATA.items()
 }    
 
@@ -39,6 +39,7 @@ def staff_review(request):
     language_list = []
     for lang, data in settings.LANGUAGE_DATA.items():
         if data['status'] == 'pending' or data['status'] == 'active':
+            print(lang_img_paths)
             p = random.choice(lang_img_paths[lang])
             language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display']})
  
