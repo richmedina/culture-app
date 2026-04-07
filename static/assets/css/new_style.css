@@ -250,3 +250,7 @@ input[type=range] + .thumb.active .value {
 	background-color: white;
 	padding: 1.0em 2.0em 2.0em 2.0em; 
 }
+/* OVERRIDE MATERIALIZE */
+ul li {
+	list-style-type: disc;
+}
