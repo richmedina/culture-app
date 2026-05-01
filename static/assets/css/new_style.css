@@ -254,3 +254,18 @@ input[type=range] + .thumb.active .value {
 ul li {
 	list-style-type: disc;
 }
+
+#ic-navbar {
+	z-index:1;
+	padding-top:64px;
+	width:240px;
+}
+
+#ic-navbar a {
+	height:auto;
+	line-height:32px;
+}
+
+#ic-navbar li:hover, #ic-navbar li.active {
+	background-color: #fff;
+}

@@ -1,25 +1,31 @@
 {% extends 'base.html' %}
+{% block pagetitle %}
+{{ topic.name }}
+{% endblock %}
+{% block langdir %}
+lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
+{% endblock %}
 {% load static %}
 {% block content %}
 <div class="section scrollspy">
     <div class="container">
         {% if topic.topic_image %}
-            <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ topic.topic_image }}' class="responsive-img center-fit-image"></a>
+            <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ topic.topic_image }}' class="responsive-img center-fit-image" alt="Return to module homepage"></a>
         {% else %}
-            <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img center-fit-image"></a>
+            <a href="{% url 'home' %}mod/{{ module.language }}/"><img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img center-fit-image" alt="Return to module homepage"></a>
         {% endif %}
 
-        <div class="nav-wrapper">
+        <div class="nav-wrapper" style="background-color: #FFFFFF">
             <p>
                 <a href="{% url 'home' %}mod/{{ module.language }}/">{{ lang_display }}</a> <span style="color: #039be5;">&#9679;</span>
                 <a href="{% url 'home' %}mod/{{ module.language }}#{{module.name}}">{{module.name}}</a>
                 <!-- <span>{{topic.name}}</span> -->
             </p>
         </div>
-        <p>
+        <p style="background-color: #FFFFFF">
             <span class="custom-card-title-1 custom-title-padding">{{ topic.name }}</span>
             {% if request.user.is_staff %} 
-            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/topic/{{topic.pk}}/change" target="_blank">edit {{ topic.name }}</a></span>
+            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/topic/{{topic.pk}}/change" aria-label="Edit {{ topic.name }}" target="_blank">edit</a></span>
             {% endif %}
         </p>
         {% if topic.activation %}
@@ -35,12 +41,16 @@
         <span class="custom-card-title-2 custom-title-padding">Situations</span>
 
         {% for scenario in scenario_results %}
-            <div class="card custom-card-color situation-grid">
+            <div class="card custom-card-color situation-grid"
+            {% if html_dir == "rtl" %}
+            style="padding-right: 5%; padding-left: 0%;"
+            {% endif %}
+            >
                 <div class="situation-grid-child custom-card-title-3 situation-title-margin">{{ scenario.0 }}</div>
                 <div class="situation-grid-child">
                     <p>Attempts</p>
                 </div>
-                <div><a class="button button-title" href="{% url 'home' %}scenario/{{ scenario.0.pk }} ">Begin {{ scenario.0 }}</a>
+                <div><a class="button button-title" href="{% url 'home' %}scenario/{{ scenario.0.pk }} " aria-label="Begin {{ scenario.0 }}">Begin</a>
                 </div>
                 <div class="situation-grid-child"> {% if scenario.1.0 == 0 %}
                     <a class="chip custom-red-chip" data-position="top" data-chip="This is the number of times that you have completed this scenario">{{ scenario.1.0 }}</a>

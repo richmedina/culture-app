@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block pagetitle %}
+User Responses
+{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -16,7 +19,7 @@
     {% elif '/R/' in request.path %}
          <h2>Summary for Russian situations</h2>
     {% endif %}
-<p>The following table presents user results on judgment tasks in situations (scenarios) in Culture TIPS.
+<p>The following table presents user results on judgment tasks in situations (scenarios) in InContext.
     The table lists situations in your language as rows in a table. The table combines data from all users in that language.</p>
 <p>For each listed situation, you can see the total number of times the judgment task associated with the listed situation was attempted ("Attempts").To the right of this number, you will see a percentage ("% in agreement with reference") that indicates, for the total of all options presented in that situation's judgment task, in what proportion of responses the user's slider fell within the zone or band of reference opinions.
     If a user's slider fell outside this band, no matter whether close or far away, their response was counted as "not in agreement."</p>

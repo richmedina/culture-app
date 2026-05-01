@@ -6903,7 +6903,7 @@ input[type=range] + .thumb {
       font-size: 10px; }
 
 input[type=range]:focus {
-  outline: none; }
+  outline: 1px solid #26A69A; }
 
 input[type=range] {
   -webkit-appearance: none; }

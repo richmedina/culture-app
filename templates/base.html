@@ -10,19 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0" />
     <meta name="theme-color" content="#2196F3">
 
-    <title>InContext</title>
-    <!-- {%if GA_MEASUREMENT_ID %}
-    <script async="https://www.googletagmanager.com/gtag/js?id={{ GA_MEASUREMENT_ID }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', '{{ GA_MEASUREMENT_ID }}');
-    </script>
-    {% endif %} -->
-    <!-- CSS  -->
+    <title>{% block pagetitle %}InContext{% endblock %}</title>
 
     <link href="{% static '/assets/min/custom-min.css' %}" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -57,7 +45,7 @@
                             <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
                                 alt="InContext Home" height="60" />
                         </a>
-                        
+                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="btn-flat right" style="color: #24779b" title="Toggle Sitemap"><i class="large material-icons">toc</i></a>{% endblock %}
                         <a href="{% url 'user_profile' %}" class="button-collapse right" data-activates="nav-mobile">
                             <i style="color: #fbd1a2;" class="large material-icons">person</i>
                         </a>
@@ -84,9 +72,10 @@
                 </div>
             </nav>
         </div>
+        {% block includenavbar %}<div id="includedNavbar"></div>{% endblock %}
     </header>
 
-    <main>
+    <main {% block langdir %}lang="en" dir="ltr"{% endblock %}>
         {% block content %}
         {% endblock %}
     </main>
@@ -99,6 +88,9 @@
                         <p><a href="https://thelanguageflagship.tech" target="_blank"><img
                                     src="{% static '/media/brand/Tech-Center-Logo.png' %}" style="width: 15em;"
                                     class="responsive-img" alt="The Language Flagship Technology Innovation Center"></a></p>
+                    </div>
+                    <div class="center-align">
+                        <p><a href="https://hawaii.edu/accessibility-statement/">Accessibility Statement</a></p>
                     </div>
                     <div class="center-align">
                         <p><img src="{% static '/assets/img/cc-license.png' %}" style="width: 7em;"
@@ -117,6 +109,16 @@
     <script src="{% static '/assets/js/nouislider.min.js' %}"></script>
     <script src="{% static '/assets/js/create_slider.js' %}"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready((function(){ 
+            $("#includedNavbar").load("{% url 'navbar' %}"); 
+            $("#ic-navbar").hide();
+            $("#show-navbar").click(function() {
+                $("#ic-navbar").toggle();
+            });
+    }));
+        
+    </script>
 
     {% block js %}
     {% endblock %}

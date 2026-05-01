@@ -1,24 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block pagetitle %}
+Your Profile
+{% endblock %}
 {% block content %}
 
 <div class="container">
-<p>Your are logged in as <b>{{request.user}}</b> with email <b>{{request.user.email}}</b></p>
+<p style="background-color: #FFFFFF">Your are logged in as <b>{{request.user}}</b> with email <b>{{request.user.email}}</b></p>
 {% if request.user.is_staff %}
-    <h3>You have staff permissions. <a class="red-text" href="{% url 'staff-review' %}">Go to Content Review Home </a></h3>
+    <h3>You have staff permissions. <a class="red-text" href="{% url 'staff-review' %}" style="background-color: #FFFFFF">Go to Content Review Home </a></h3>
 {% endif %}
 <br>
-<a href="{% url 'password_change' %}">Need to change password?</a>
+<a href="{% url 'password_change' %}" style="background-color: #FFFFFF">Need to change password?</a>
 <hr>
 <h1>Instructor's Dashboard</h1>
 <h3>Courses</h3>
-<a href="{% url 'create_course' %}">Create a new course</a>
+<a href="{% url 'create_course' %}" style="background-color: #FFFFFF">Create a new course</a>
 <br>
 <br>
 <div id="response"></div>
 <ul class="collection">
     {% for course in courses %}
-        <li class="collection-item">
+        <li class="collection-item" style="background-color: #FFFFFF">
             <h3>{{ course }}</h3>
             <a href="{% url 'responses_course' course.id%}">View results</a>
             <a id="{{ course.id }}" href="#">View participants</a>

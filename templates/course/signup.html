@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block pagetitle %}
+Create InContext Account
+{% endblock %}
 
 {% block content %}
     {% if error %}
@@ -35,3 +38,5 @@
 
 
 {% endblock %}
+{% block includenavbar %}{% endblock %}
+{% block includesitenavicon %}{% endblock %}

@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block pagetitle %}
+Your Profile
+{% endblock %}
 {% block content %}
 
 <div class="container">
 
 <h1>Student Profile Page</h1>
 <hr>
-<p>Your are logged in as <b>{{request.user}}</b> with email <b>{{request.user.email}}</b></p>
+<p style="background-color: #FFFFFF">Your are logged in as <b>{{request.user}}</b> with email <b>{{request.user.email}}</b></p>
 {% if request.user.is_staff %}
-    <h3>You have staff permissions. <a class="red-text" href="{% url 'staff-review' %}">Go to Content Review Home </a></h3>
+    <h3>You have staff permissions. <a class="red-text" href="{% url 'staff-review' %}" style="background-color: #FFFFFF">Go to Content Review Home </a></h3>
 {% endif %}
 <br>
-<a href="{% url 'password_change' %}">Need to change password?</a>
+<a href="{% url 'password_change' %}" style="background-color: #FFFFFF">Need to change password?</a>
     {% if courses %}
         <h1>Your current courses</h1>
-        <a href="{% url 'courses' %}" >Find courses to enroll</a>
+        <a href="{% url 'courses' %}" style="background-color: #FFFFFF">Find courses to enroll</a>
         <ul class="collection">
         {% for course in courses %}
             <li class="collection-item">{{ course }}</li>

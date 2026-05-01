@@ -1,0 +1,26 @@
+<ul id="ic-navbar" class="side-nav fixed" title="Sitemap">
+    {% for language in language_object %}
+        <li><details>
+            <summary>{{ language.display }}</summary>
+            <ul>
+                {% for module in language.lang_modules %}
+                    <li>
+                        <a href="{% url 'modules' language.lang %}#{{ module.name }}">&#9658{{ module.name }}</a>
+                        <ul>
+                            {% for topic in module.topics.all %}
+                                <li>
+                                    <a href="{% url 'topic-scenarios' topic.pk %}">&#9658{{ topic.name }}</a>
+                                    <ul>
+                                        {% for scenario in topic.scenarios.all %}
+                                            <li><a href="{% url 'scenario' scenario.pk %}">&#9658{{ scenario.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </details></li>
+    {% endfor %}
+</ul>

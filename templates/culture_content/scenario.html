@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% block pagetitle %}
+{{ scenario.name }}
+{% endblock %}
+{% block langdir %}
+lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
+{% endblock %}
 {% load static %}
 {% block content %}
 <div class="section scrollspy">
     <div class="container">
         <img src='/static/culture/media/{{ module.image_for_topics }}' class="responsive-img center-fit-image">
-        <div class="nav-wrapper">
+        <div class="nav-wrapper" style="background-color: #FFFFFF">
             <p>
                 <a href="{% url 'home' %}mod/{{ module.language }}/">{{ lang_display }}</a> <span
                     style="color: #039be5;">&#9679;</span>
@@ -13,10 +19,10 @@
                 <a href="{% url 'home' %}top/{{ topic.id }}">{{ topic.name }}</a>
             </p>
         </div>
-        <p>
+        <p style="background-color: #FFFFFF">
             <span class="custom-card-title-1 custom-title-padding">{{ scenario.name }}</span>
             {% if request.user.is_staff %} 
-            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/scenario/{{scenario.pk}}/change" target="_blank">edit</a></span>
+            <span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/scenario/{{scenario.pk}}/change" target="_blank">edit {{ scenario.name }}</a></span>
             {% endif %}
         </p>
         <a class="button button-title" id="desbutton" href="#!">Situation</a>
@@ -65,9 +71,10 @@
                     <ul>
                         {% for an in scenario.judgment_task.get_answers %}
                         <li class="collection-item">
-                            <p>{{ an.content|safe }}</p>
                             <p class="range-field" data-id="{{ an.pk }}">
+                                <label>{{ an.content|safe }}
                                 <input type="range" min="0" max="5" step="0.1" />
+                                </label>
                             </p>
                             <br>
                         </li>
@@ -91,7 +98,7 @@
             <p class="instructions">{{ scenario.description|safe }}</p>
             <h3>Feedback</h3>
             {% if request.user.is_staff %} 
-            <p><span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/judgmenttask/{{scenario.judgment_task.pk}}/change" target="_blank">edit judgement tasks</a></span></p>
+            <p><span class="custom-card-subtitle-1"><a href="{% url 'home' %}admin/culture_content/judgmenttask/{{scenario.judgment_task.pk}}/change" target="_blank" aria-label="edit judgment tasks">edit</a></span></p>
             {% endif %}
             <div id="results"></div>
             <a class="button button-title" id="next" href="#!">Next</a>

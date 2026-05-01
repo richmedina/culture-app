@@ -52,6 +52,14 @@ def staff_review(request):
     template_context = {'languages': language_list}
     return render(request, 'culture_content/home_review.html', template_context)
 
+@login_required
+def get_navbar(request):
+    language_object = []
+    for lang, data in settings.LANGUAGE_DATA.items():
+        if data['status'] == 'active':
+            language_object.append({ 'lang': lang, 'display': data['human_readable'], 'lang_modules': Module.objects.filter(language=lang) })
+
+    return render(request, 'culture_content/navbar.html', { 'language_object': language_object })
 
 @login_required
 def get_modules(request, lang):
@@ -62,7 +70,10 @@ def get_modules(request, lang):
     else:
         p = random.choice(lang_img_paths[lang])
         modules = Module.objects.filter(language=lang).order_by('module_number')
-    return render(request, 'culture_content/modules.html', {'modules': modules, 'img_url': p})
+        lang_display = settings.LANGUAGE_DATA[lang]['human_readable']
+        html_dir = settings.LANGUAGE_DATA[lang]['html_dir']
+        html_lang = settings.LANGUAGE_DATA[lang]['html_lang']
+    return render(request, 'culture_content/modules.html', {'modules': modules, 'img_url': p, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang})
 
 
 @login_required
@@ -71,12 +82,11 @@ def get_topic_scenarios(request, top_id):
     module = Module.objects.get(topics__in=[top_id])
     if module.language not in approved_lang_modules and request.user.is_staff==False:
         raise Http404("Page not found")
-    elif module.language in temporary_lang_access and request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists()==False and request.user.is_staff==False:
-        raise Http404("Page not found")
-    else:
-        lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
-        scenario_results = get_scenarios_responses(top_id, request.user)
-    return render(request, 'culture_content/topics.html', {'topic': topic, 'module': module, 'lang_display': lang_display, 'scenario_results': scenario_results})
+    lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
+    html_dir = settings.LANGUAGE_DATA[module.language]['html_dir']
+    html_lang = settings.LANGUAGE_DATA[module.language]['html_lang']
+    scenario_results = get_scenarios_responses(top_id, request.user)
+    return render(request, 'culture_content/topics.html', {'topic': topic, 'module': module, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'scenario_results': scenario_results})
 
 
 @login_required
@@ -90,7 +100,9 @@ def get_scenario_detail(request, scenario_id):
         raise Http404("Page not found")
     else:
         lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
-    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'lang_display': lang_display, 'ajax_save_resp': settings.SITE_ROOT+'save_response/',})
+    html_dir = settings.LANGUAGE_DATA[module.language]['html_dir']
+    html_lang = settings.LANGUAGE_DATA[module.language]['html_lang']
+    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'ajax_save_resp': settings.SITE_ROOT+'save_response/',})
 
 
 @login_required
@@ -238,6 +250,3 @@ def get_profile(request):
         return render(request, 'culture_content/dashboard.html', {'profile': profile})
     else:
         return HttpResponseForbidden()
-
-
-
