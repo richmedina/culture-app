@@ -41,11 +41,11 @@
             <nav id="nav_f" style="background-color: #221f1f" role="navigation">
                 <div class="container">
                     <div class="nav-wrapper">
-                        <a href="{% url 'home' %}" class="brand-logo left">
+                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="btn-flat left" style="color: #24779b" title="Toggle Sitemap"><i class="large material-icons">toc</i></a>{% endblock %}
+                        <a href="{% url 'home' %}" class="brand-logo left" data-activates="nav-mobile">
                             <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
                                 alt="InContext Home" height="60" />
                         </a>
-                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="btn-flat right" style="color: #24779b" title="Toggle Sitemap"><i class="large material-icons">toc</i></a>{% endblock %}
                         <a href="{% url 'user_profile' %}" class="button-collapse right" data-activates="nav-mobile">
                             <i style="color: #fbd1a2;" class="large material-icons">person</i>
                         </a>
@@ -56,7 +56,6 @@
                         {% endif %}
 
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            
                             {% if request.user.is_staff %}
                             <li>                                
                                 <a href="{% url 'staff-review' %}" class="right" style="color: #24779b"><i class="large material-icons">security</i></a>
