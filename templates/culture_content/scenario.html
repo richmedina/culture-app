@@ -69,10 +69,10 @@ lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
                 <p class="instructions">{{ scenario.judgment_task.description|safe }}</p>
                 <div class="col s12">
                     <ul>
-                        {% for an in scenario.judgment_task.get_answers %}
+                        {% for an in judgment_answers %}
                         <li class="collection-item">
                             <p class="range-field" data-id="{{ an.pk }}">
-                                <label>{{ an.content|striptags }}
+                                <label>{{ an.content|safe }}
                                 <input type="range" min="0" max="5" step="0.1" />
                                 </label>
                             </p>

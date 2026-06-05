@@ -9,6 +9,7 @@ import simplejson
 from django.http import JsonResponse, HttpResponseForbidden, Http404
 from course.models import Course
 from glob import glob
+from html_sanitizer.django import get_sanitizer
 import random
 import os
 
@@ -24,6 +25,8 @@ lang_img_paths = {
     lang: [data['img_home'] + '/' + os.path.basename(r) for r in glob(IMAGE_PATH + r'/' + data['img_home'] + r'/*.*g')]
     for lang, data in settings.LANGUAGE_DATA.items()
 }    
+
+sanitizer = get_sanitizer('scenario_answers')
 
 @login_required
 def home(request):
@@ -94,15 +97,19 @@ def get_scenario_detail(request, scenario_id):
     scenario = get_object_or_404(Scenario, pk=scenario_id)
     topic = get_object_or_404(Topic, scenarios__in=[scenario_id]) # when a scenario is unattached (made unavailable) from a topic, this forces the 404.
     module = Module.objects.get(topics__in=[topic.id])
+    sanitized_answers = []
     if module.language not in approved_lang_modules and request.user.is_staff==False:
         raise Http404("Page not found")
     elif module.language in temporary_lang_access and request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists()==False and request.user.is_staff==False and request.user.is_staff==False:
         raise Http404("Page not found")
     else:
         lang_display = settings.LANGUAGE_DATA[module.language]['human_readable']
-    html_dir = settings.LANGUAGE_DATA[module.language]['html_dir']
-    html_lang = settings.LANGUAGE_DATA[module.language]['html_lang']
-    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'ajax_save_resp': settings.SITE_ROOT+'save_response/',})
+        html_dir = settings.LANGUAGE_DATA[module.language]['html_dir']
+        html_lang = settings.LANGUAGE_DATA[module.language]['html_lang']
+        answers = Answer.objects.filter(task=scenario.judgment_task.id)
+        for answer in answers:
+            sanitized_answers.append({'pk': answer.pk, 'content': sanitizer.sanitize(answer.content)})
+    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'judgment_answers':sanitized_answers, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'ajax_save_resp': settings.SITE_ROOT+'save_response/',})
 
 
 @login_required
