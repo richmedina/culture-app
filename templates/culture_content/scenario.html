@@ -199,7 +199,7 @@ lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
             var ids = [];
             $(".range-field").each(function () {
                 var id = $(this).attr("data-id");
-                var response = $(this).find('span').text();
+                var response = $(this).find('span.thumb').text();
                 if (response == '11') { response = 1.0 } else if (response == '00') { response = 0.0 } else if (response == '22') { response = 2.0 } else if (response == '33') { response = 3.0 } else if (response == '44') { response = 4.0 } else if (response == '55') { response = 5.0 };
                 var eval = parseFloat(response).toFixed(1);
                 if (isNaN(eval)) {
