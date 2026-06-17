@@ -41,7 +41,7 @@ $( document ).ready(function() {
 
     $("[id^=participants-]").hide();
 
-    $('a').click(function () {
+    $('a:not(#show-navbar)').click(function () {
         var id = $(this).attr('id');
         $('#'+id).hide();
         $('#participants-'+id).show();

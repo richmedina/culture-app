@@ -41,8 +41,8 @@
             <nav id="nav_f" style="background-color: #221f1f" role="navigation">
                 <div class="container">
                     <div class="nav-wrapper">
-                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="btn-flat left" style="color: #24779b" title="Toggle Sitemap"><i class="large material-icons">toc</i></a>{% endblock %}
-                        <a href="{% url 'home' %}" class="brand-logo left" data-activates="nav-mobile">
+                        {% block includemobilesitenavicon %}<a href="#" id="show-mobile-navbar" class="button-collapse right" style="color: #24779b" title="Toggle Sitemap" data-activates="nav-mobile"><i class="large material-icons">toc</i></a>{% endblock %}
+                        <a href="{% url 'home' %}" class="brand-logo center hide-on-med-and-down" data-activates="nav-mobile">
                             <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
                                 alt="InContext Home" height="60" />
                         </a>
@@ -55,6 +55,15 @@
                         </a>
                         {% endif %}
 
+                        <a href="{% url 'home' %}" class="brand-logo left logo-collapse" data-activates="nav-mobile">
+                            <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
+                                alt="InContext Home" height="60" />
+                        </a>
+
+                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="left hide-on-med-and-down" style="color: #24779b" title="Toggle Sitemap">{% endblock %}
+                            <i class="large material-icons">toc</i>
+                        </a>
+
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             {% if request.user.is_staff %}
                             <li>                                
@@ -65,7 +74,7 @@
                                 <a href="{% url 'user_profile' %}">
                                     <i style="color: #fbd1a2;" class="large material-icons">person</i>
                                 </a>
-                            </li>                            
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -111,9 +120,11 @@
     <script>
         $(document).ready((function(){ 
             $("#includedNavbar").load("{% url 'navbar' %}"); 
-            $("#ic-navbar").hide();
             $("#show-navbar").click(function() {
                 $("#ic-navbar").toggle();
+            });
+            $("#show-mobile-navbar").click(function() {
+                $("#ic-mobile-navbar").toggle();
             });
     }));
         
