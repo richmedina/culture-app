@@ -60,9 +60,9 @@
                                 alt="InContext Home" height="60" />
                         </a>
 
-                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="left hide-on-med-and-down" style="color: #24779b" title="Toggle Sitemap">{% endblock %}
+                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="left hide-on-med-and-down" style="color: #24779b" title="Toggle Sitemap">
                             <i class="large material-icons">toc</i>
-                        </a>
+                        </a>{% endblock %}
 
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             {% if request.user.is_staff %}
