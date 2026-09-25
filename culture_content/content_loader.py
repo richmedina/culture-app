@@ -158,9 +158,9 @@ def import_module_content(file_name):
 
 # CLEANUP DURING TESTING (Deletes all on cascade)       
 
-          judgement_task_obj.delete()
-        topic_learning_objectives.delete()
-      learning_objectives.delete()          
+      #     judgement_task_obj.delete()
+      #   topic_learning_objectives.delete()
+      # learning_objectives.delete()          
 
 """ Running in the interactive django shell:
 from culture_content import content_loader as cl
