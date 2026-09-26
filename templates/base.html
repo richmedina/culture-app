@@ -38,16 +38,16 @@
     <!--Navigation-->
     <header>
         <div class="navbar-fixed">
-            <nav id="nav_f" style="background-color: #221f1f" role="navigation">
+            <nav id="nav_f" style="background-color: #fff" role="navigation">
                 <div class="container">
                     <div class="nav-wrapper">
                         {% block includemobilesitenavicon %}<a href="#" id="show-mobile-navbar" class="button-collapse right" style="color: #24779b" title="Toggle Sitemap" data-activates="nav-mobile"><i class="large material-icons">toc</i></a>{% endblock %}
                         <a href="{% url 'home' %}" class="brand-logo center hide-on-med-and-down" data-activates="nav-mobile">
-                            <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
+                            <img src="{% static '/media/brand/SL Tagline Horizontal Full Color.png' %}"
                                 alt="InContext Home" height="60" />
                         </a>
                         <a href="{% url 'user_profile' %}" class="button-collapse right" data-activates="nav-mobile">
-                            <i style="color: #fbd1a2;" class="large material-icons">person</i>
+                            <i style="color: rgb(75, 75, 75);" class="large material-icons">person</i>
                         </a>
                         {% if request.user.is_staff %}
                         <a href="{% url 'staff-review' %}" class="button-collapse right" data-activates="nav-mobile" style="color: #24779b">
@@ -56,23 +56,25 @@
                         {% endif %}
 
                         <a href="{% url 'home' %}" class="brand-logo left logo-collapse" data-activates="nav-mobile">
-                            <img src="{% static '/media/brand/horizontal/IC Full Logo Horizontal Full Color Alt.png' %}"
+                            <img src="{% static '/media/brand/SL Tagline Horizontal Full Color.png' %}"
                                 alt="InContext Home" height="60" />
                         </a>
 
-                        {% block includesitenavicon %}<a href="#" id="show-navbar" class="left hide-on-med-and-down" style="color: #24779b" title="Toggle Sitemap">
+                        {% block includesitenavicon %}
+                        <a href="#" id="show-navbar" class="left hide-on-med-and-down" style="color: #24779b" title="Toggle Sitemap">
                             <i class="large material-icons">toc</i>
-                        </a>{% endblock %}
+                        </a>
+                        {% endblock %}
 
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <ul id="nav-mobile" class="right hide-on-med-and-down" style="list-style-type: none">
                             {% if request.user.is_staff %}
-                            <li>                                
+                            <li style="list-style-type: none">                                
                                 <a href="{% url 'staff-review' %}" class="right" style="color: #24779b"><i class="large material-icons">security</i></a>
                             </li>
                             {% endif %}
-                            <li>
+                            <li style="list-style-type: none">
                                 <a href="{% url 'user_profile' %}">
-                                    <i style="color: #fbd1a2;" class="large material-icons">person</i>
+                                    <i style="color: rgb(75, 75, 75);" class="large material-icons">person</i>
                                 </a>
                             </li>
                         </ul>

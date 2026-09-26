@@ -34,11 +34,11 @@ def home(request):
     for lang, data in settings.LANGUAGE_DATA.items():
         if data['status'] == 'active':
             p = random.choice(lang_img_paths[lang])
-            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display']})
+            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display'], 'lang_display': data['human_readable']})
         elif request.user.groups.filter(name=TEMP_ACCESS_GROUP).exists() and data['status'] == 'temp_access':
             p = random.choice(lang_img_paths[lang])
-            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display'] + ' (Temporary Access)'})
- 
+            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display'] + ' (Temporary Access)', 'lang_display': data['human_readable']})
+
     template_context = {'languages': language_list}
     return render(request, 'culture_content/home.html', template_context)
 
@@ -50,7 +50,7 @@ def staff_review(request):
     for lang, data in settings.LANGUAGE_DATA.items():
         if data['status'] == 'pending' or data['status'] == 'active' or data['status'] == 'temp_access':
             p = random.choice(lang_img_paths[lang])
-            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display']})
+            language_list.append({'url': lang, 'image_url': p, 'lang_name': data['display'], 'lang_display': data['human_readable']})
  
     template_context = {'languages': language_list}
     return render(request, 'culture_content/home_review.html', template_context)

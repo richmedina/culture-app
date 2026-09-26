@@ -275,3 +275,36 @@ ul li {
       display: none; 
 	}
 }
+
+.title-card {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	color: white;
+	background-color: rgb(54, 52, 52, 0.2);
+	/* border-radius: 10px; */
+	padding: 10px 10px 10px 10px;
+	border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px; 
+	margin: 0px 0px 0px 5px;
+ 	/* font-family : 'Montserrat', Arial, "sans-serif"; */
+}
+.title-card > h3 {
+	font-weight : 600;
+	font-size: 13pt;
+	color : #FFFFFF;
+	line-height: 1;
+	margin: 0px 0px 8px 5px;
+	/* background-color: rgb(54, 52, 52, 0.5); */
+}
+.title-label {
+	font-size: 32pt;
+	padding: 5px;
+	margin: 5px 5px 5px 5px;
+	color: white;
+	border: 2px solid #7FD3BF;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+	/* background-color: rgb(54, 52, 52, 0.5); */
+	/* opacity: 0.8; */
+}

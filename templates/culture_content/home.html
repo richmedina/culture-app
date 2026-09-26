@@ -5,9 +5,18 @@
 <div class="container">
     <br>
     {% for i in languages %}
+    <div style="position: relative; display: inline-block; padding-top: 5px">
         <a href="{% url 'modules' i.url %}">  
             <img src="{% static 'media/' %}{{i.image_url}}"  alt="{{i.lang_name}}" class="responsive-img">
+            {% if i.lang_name == 'Japanese' or i.lang_name == 'Japanese-in-English' %}
+            <div class="title-card">
+                <h1 class="title-label">
+                    {{ i.lang_display }} 
+                </h1>
+            </div>
+            {% endif %}
         </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
