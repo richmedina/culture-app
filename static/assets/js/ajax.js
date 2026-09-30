@@ -31,9 +31,6 @@ function getCookie(name) {
         
         return $.ajax({
             url: ajax_root + answer_id + '/' + response,
-            headers: {
-                "X-CSRFToken": getCookie('csrftoken')
-            },
             type: 'post'
         });
 
