@@ -111,7 +111,7 @@ def get_scenario_detail(request, scenario_id):
         answers = Answer.objects.filter(task=scenario.judgment_task.id)
         for answer in answers:
             sanitized_answers.append({'pk': answer.pk, 'content': sanitizer.sanitize(answer.content)})
-    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'judgment_answers':sanitized_answers, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'ajax_save_resp': 'save_response/',})
+    return render(request, 'culture_content/scenario.html', {'scenario': scenario, 'topic':topic, 'module':module, 'judgment_answers':sanitized_answers, 'lang_display': lang_display, 'html_dir': html_dir, 'html_lang': html_lang, 'ajax_save_resp': '/save_response/',})
 
 
 @login_required
