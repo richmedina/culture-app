@@ -19,6 +19,7 @@ function getCookie(name) {
         }
     //Ajax call
     function saveResponse(answer_id, response, ajax_root){
+        console.log("CSRF token: " + getCookie('csrftoken'));
         var result =new Array();
         $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -29,6 +30,9 @@ function getCookie(name) {
         });
         return $.ajax({
             url: ajax_root + answer_id + '/' + response,
+            headers: {
+                "X-CSRFToken": getCookie('csrftoken')
+            },
             type: 'post'
         });
 
