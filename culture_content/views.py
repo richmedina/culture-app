@@ -5,6 +5,7 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.html import strip_tags
 from django.http import HttpResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 import simplejson
 from django.http import JsonResponse, HttpResponseForbidden, Http404
 from course.models import Course
@@ -93,6 +94,7 @@ def get_topic_scenarios(request, top_id):
 
 
 @login_required
+@ensure_csrf_cookie
 def get_scenario_detail(request, scenario_id):
     scenario = get_object_or_404(Scenario, pk=scenario_id)
     topic = get_object_or_404(Topic, scenarios__in=[scenario_id]) # when a scenario is unattached (made unavailable) from a topic, this forces the 404.
