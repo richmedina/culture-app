@@ -18,13 +18,12 @@ function getCookie(name) {
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
     //Ajax call
-    function saveResponse(answer_id, response, ajax_root){
+    function saveResponse(answer_id, response, ajax_root, cookie){
         var result =new Array();
         $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                console.log("CSRF token set");
+                xhr.setRequestHeader("X-CSRFToken", cookie);
             }
         }
         });

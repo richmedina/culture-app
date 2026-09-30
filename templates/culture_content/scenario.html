@@ -208,7 +208,9 @@ lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
                 };
                 var chain = $.Deferred();
                 var ajax_root = "{{ ajax_save_resp }}";
-                chain.resolve(promise = saveResponse(id, eval, ajax_root));
+                var csrf_tk = "{{ csrf_token }}";
+                chain.resolve(promise = saveResponse(id, eval, ajax_root, csrf_tk));
+                console.log(promise);
                 promises.push(promise);
             });
             Promise.all(promises).then(function (data) {
