@@ -154,6 +154,7 @@ lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
 </div>
 {% endblock %}
 {% block js %}
+{% csrf_token %}
 <script type="text/javascript">
     $(document).ready(function () {
         $('p').filter(function () { return $.trim(this.innerHTML) == "" }).remove();
@@ -208,9 +209,8 @@ lang="{{ html_lang|default:"en" }}" dir="{{ html_dir|default:"ltr" }}"
                 };
                 var chain = $.Deferred();
                 var ajax_root = "{{ ajax_save_resp }}";
-                var csrf_tk = "{{ csrf_token }}";
+                var csrf_tk = document.querySelector('[name=csrfmiddlewaretoken]').value;
                 chain.resolve(promise = saveResponse(id, eval, ajax_root, csrf_tk));
-                console.log(promise);
                 promises.push(promise);
             });
             Promise.all(promises).then(function (data) {
